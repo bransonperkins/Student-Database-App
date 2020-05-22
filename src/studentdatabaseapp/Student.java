@@ -7,7 +7,7 @@ public class Student {
     private String lastName;
     private int gradeYear;
     private String studentID;
-    private String courses = null;
+    private String courses = "";
     private int tuitionBalance = 0;
     private static int costOfCourse = 600;
     private static int id = 1000;
@@ -25,8 +25,7 @@ public class Student {
         this.gradeYear = userInput.nextInt();
 
         setStudentID();
-        System.out.println(firstName + " " + lastName + " " + gradeYear + " " + studentID);
-
+        //System.out.println(firstName + " " + lastName + " " + gradeYear + " " + studentID);
     }
 
     // Generate an ID
@@ -46,19 +45,38 @@ public class Student {
             String course = userInput.next();
 
             if (!course.equals("Q")) {
-                courses = courses + "\n" + course;
+                courses = courses + "\n  " + course;
                 tuitionBalance = tuitionBalance + costOfCourse;
             } else {
                 break;
             }
         } while (true);
-        System.out.println("Enrolled in: " + courses);
-        System.out.println("Tuition balance: " + tuitionBalance);
+        // System.out.println("Enrolled in: " + courses);
     }
 
     // View balance
+    public void viewBalance() {
+        System.out.println("Your balance is : $" + tuitionBalance);
+    }
 
     // Pay tuition
+    public void payTuition() {
+        viewBalance();
+        System.out.print("Enter your payment amount: $");
+        Scanner userInput = new Scanner(System.in);
+        int payment = userInput.nextInt();
 
-    // Show status
+        tuitionBalance = tuitionBalance - payment;
+        System.out.println("Thank you for your payment of $" + payment);
+        viewBalance();
+    }
+
+    // Show account status - using void method instead of overriding toString
+    public void showInfo() {
+        System.out.println("Name: " + firstName + " " + lastName +
+                "\nGrade Level: " + gradeYear +
+                "\nStudent ID" + studentID +
+                "\nCourses enrolled: " + courses +
+                "\nYour remaining balance is $" + tuitionBalance);
+    }
 }
